@@ -17,8 +17,8 @@ const router = jsonServer.router(db)
 
 const middlewares = jsonServer.defaults()
 
-server.use(middlewares)
 server.use(cors()) // enable CORS
+server.use(middlewares)
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
