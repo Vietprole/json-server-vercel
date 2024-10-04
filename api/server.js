@@ -1,5 +1,6 @@
 // See https://github.com/typicode/json-server#module
 const jsonServer = require('json-server')
+const cors = require('cors') // cors is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 
 const server = jsonServer.create()
 
@@ -17,6 +18,7 @@ const router = jsonServer.router(db)
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
+server.use(cors()) // enable CORS
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
