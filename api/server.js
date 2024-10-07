@@ -16,6 +16,18 @@ const router = jsonServer.router(db)
 
 const middlewares = jsonServer.defaults()
 
+// Middleware to log response before sending
+server.use((req, res, next) => {
+    const originalSend = res.send
+    res.send = function (body) {
+        console.log('Response Status:', res.statusCode)
+        console.log('Response Headers:', res.getHeaders())
+        console.log('Response Body:', body)
+        originalSend.call(this, body)
+    }
+    next()
+})
+
 server.use(middlewares)
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
